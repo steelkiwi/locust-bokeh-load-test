@@ -2,7 +2,7 @@ import requests
 import six
 
 from bokeh.client import push_session
-from bokeh.io import hplot
+from bokeh.layouts import gridplot
 from bokeh.plotting import figure, curdoc
 
 # http://bokeh.pydata.org/en/latest/docs/user_guide/server.html#connecting-with-bokeh-client
@@ -35,10 +35,9 @@ config = {'figures': [{'charts':
           }
 
 data_sources = {}  # dict with data sources for our figures
-
+figures = []  # list of figures for each state
 for state in config['states']:
     data_sources[state] = {}  # dict with data sources for figures for each state
-    figures = []  # list of figures for each state
     for figure_data in config['figures']:
         # initialization of figure
         new_figure = figure(title=figure_data['title'].format(state.capitalize()))
@@ -53,7 +52,6 @@ for state in config['states']:
             # adding data source for markers and line
             data_sources[state][chart['key']] = scatter.data_source = line.data_source
         figures.append(new_figure)
-    hplot(*figures)  # create a row with 2 figures for each state
 
 requests_key = config['requests_key']
 url = config['url']
@@ -82,6 +80,6 @@ def update():
 
 curdoc().add_periodic_callback(update, 1000)
 
-session.show()  # open the document in a browser
+session.show(gridplot(figures, ncols=2))  # open browser with gridplot containing 2 figures in row for each state
 
 session.loop_until_closed()  # run forever
