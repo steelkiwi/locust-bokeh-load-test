@@ -7,8 +7,8 @@ As noticed on Locust website:
 > A fundamental feature of Locust is that you describe all your test in Python code. No need for clunky UIs or bloated XML, just plain code.
 
 ## Locust installation
-Locust requires **Python 2.6+**. It is not currently compatible with Python 3.x.
-Locust is available on PyPI and can be installed through pip or easy_install
+Locust load testing library requires **Python 2.6+**. It is not currently compatible with Python 3.x.
+Performance testing python module Locust is available on PyPI and can be installed through pip or easy_install
 
 `pip install locustio` or: `easy_install locustio`
 
@@ -55,16 +55,16 @@ class WebsiteUser(HttpLocust):
 
 ## Start Locust
 
-To run Locust with the above locust file, if it was named *locustfile.py*, we could run (in the same directory as *locustfile.py*):
+To run Locust with the above python locust file, if it was named *locustfile.py*, we could run (in the same directory as *locustfile.py*):
 
 `locust --host=http://example.com`
 
-When Locust is started you should visit [http://127.0.0.1:8089/](http://127.0.0.1:8089/) and there you'll find web-interface of our Locust instance. Then input **Number of users to simulate** (e.g. 300) and **Hatch rate (users spawned/second)** (e.g. 10) and press **Start swarming**. After that Locust will start "hatching" users and you can see results in table.
+When python load testing app Locust is started you should visit [http://127.0.0.1:8089/](http://127.0.0.1:8089/) and there you'll find web-interface of our Locust instance. Then input **Number of users to simulate** (e.g. 300) and **Hatch rate (users spawned/second)** (e.g. 10) and press **Start swarming**. After that Locust will start "hatching" users and you can see results in table.
 
-## Visualization
+## Python Data Visualization
 So table is nice but we'd prefer to see results on graph. There is an [issue](https://github.com/locustio/locust/issues/144) in which people ask to add graphical interface to Locust and there are several propositions how to display graphs for Locust data. I've decided to use Python interactive visualization library [Bokeh](http://bokeh.pydata.org/en/latest/).
 
-It is easy to install Bokeh from PyPI using pip:
+It is easy to install python graphing library Bokeh from PyPI using pip:
 
 `pip install bokeh`
 
@@ -108,7 +108,7 @@ We can get Locust data in JSON format visiting [http://localhost:8089/stats/requ
 }
 ```
 
-To display this data on plots we'll create *plotter.py* file and put it to the  directory in which our *locustfile.py* is:
+To display this data on interactive plots we'll create *plotter.py* file, built on usage of python visualization library Bokeh, and put it to the  directory in which our *locustfile.py* is:
 
 ```python
 # plotter.py
@@ -202,7 +202,7 @@ session.loop_until_closed()  # run forever
 
 ## Running all together
 
-So our Locust is running (if no start it with `locust --host=http://example.com`) and now we should start Bokeh server with `bokeh serve` and then run our *plotter.py* with `python plotter.py`. As our script calls **show** a browser tab is automatically opened up to the correct URL to view the document.
+So our Locust is running (if no, start it with `locust --host=http://example.com`) and now we should start Bokeh server with `bokeh serve` and then run our *plotter.py* with `python plotter.py`. As our script calls **show** a browser tab is automatically opened up to the correct URL to view the document.
 
 If Locust is already running the test you'll see results on graphs immediately. If no start new test at [http://localhost:8089/]() and return to the Bokeh tab and watch the results of testing in real time.
 
